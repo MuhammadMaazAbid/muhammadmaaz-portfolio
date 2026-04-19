@@ -1,26 +1,34 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Hero, Experience, Projects, Skills, Honors } from "@/components/site/sections";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Muhammad Maaz — Full-Stack Developer & UN Millennium Fellow" },
+      {
+        name: "description",
+        content:
+          "Full-Stack Developer specializing in Flutter, Node.js, and React. Founder of Insightify and UN Millennium Fellow, Class of 2025.",
+      },
+      { property: "og:title", content: "Muhammad Maaz — Full-Stack Developer" },
+      {
+        property: "og:description",
+        content:
+          "Full-Stack Developer specializing in Flutter, Node.js, and React. Founder of Insightify and UN Millennium Fellow, Class of 2025.",
+      },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
-
 function Index() {
-  return <PlaceholderIndex />;
+  return (
+    <>
+      <Hero />
+      <Experience />
+      <Projects />
+      <Skills />
+      <Honors />
+    </>
+  );
 }
