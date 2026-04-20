@@ -43,6 +43,13 @@ export const Route = createRootRoute({
       { name: "author", content: "Muhammad Maaz" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { property: "og:title", content: "Muhammad Maaz — Full-Stack Developer & UN Millennium Fellow" },
+      { name: "twitter:title", content: "Muhammad Maaz — Full-Stack Developer & UN Millennium Fellow" },
+      { name: "description", content: "Portfolio of Muhammad Maaz, Full-Stack Software Developer, UN Millennium Fellow, and Co-Founder of Insightify. Specialized in Flutter, React, and Node.js." },
+      { property: "og:description", content: "Portfolio of Muhammad Maaz, Full-Stack Software Developer, UN Millennium Fellow, and Co-Founder of Insightify. Specialized in Flutter, React, and Node.js." },
+      { name: "twitter:description", content: "Portfolio of Muhammad Maaz, Full-Stack Software Developer, UN Millennium Fellow, and Co-Founder of Insightify. Specialized in Flutter, React, and Node.js." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/lHVh6ANPlRYGpGaBbEPqVltPpKj1/social-images/social-1776651827772-ClearPicture.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/lHVh6ANPlRYGpGaBbEPqVltPpKj1/social-images/social-1776651827772-ClearPicture.webp" },
     ],
     links: [
       {
