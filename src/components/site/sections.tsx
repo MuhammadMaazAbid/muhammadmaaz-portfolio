@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Github, Linkedin } from "lucide-react";
+import { ArrowRight, Download, Github, Linkedin } from "lucide-react";
 import { experience, honors, profile, projects, skills } from "./data";
 
 function SectionLabel({ index, label }: { index: string; label: string }) {
@@ -62,6 +62,16 @@ export function Hero() {
         >
           Contact Me
         </Link>
+        <a
+          href="/Muhammad_Maaz_Resume.pdf"
+          download
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-2 rounded-md border border-border bg-transparent px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-border-strong hover:bg-card"
+        >
+          <Download className="h-4 w-4" />
+          Download Resume
+        </a>
 
         <div className="ml-1 flex items-center gap-1">
           <a
