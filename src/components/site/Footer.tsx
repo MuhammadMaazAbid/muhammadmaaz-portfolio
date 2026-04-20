@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Download, Github, Linkedin, Mail } from "lucide-react";
 import { profile } from "./data";
 
 export function Footer() {
@@ -12,13 +12,25 @@ export function Footer() {
           Open to internships, collaborations, and meaningful product work.
         </p>
 
-        <a
-          href={`mailto:${profile.email}`}
-          className="mt-6 inline-flex items-center gap-2 text-base text-primary hover:underline underline-offset-4"
-        >
-          <Mail className="h-4 w-4" />
-          {profile.email}
-        </a>
+        <div className="mt-6 flex flex-wrap items-center gap-4">
+          <a
+            href={`mailto:${profile.email}`}
+            className="inline-flex items-center gap-2 text-base text-primary hover:underline underline-offset-4"
+          >
+            <Mail className="h-4 w-4" />
+            {profile.email}
+          </a>
+          <a
+            href="/Muhammad_Maaz_Resume.pdf"
+            download
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-md border border-border bg-card px-3 py-1.5 text-sm text-foreground transition-colors hover:border-primary/40 hover:bg-card-elevated"
+          >
+            <Download className="h-4 w-4" />
+            Download Resume
+          </a>
+        </div>
 
         <div className="mt-10 flex flex-wrap items-center justify-between gap-6 border-t border-border/60 pt-6 text-sm text-muted-foreground">
           <p>© {new Date().getFullYear()} Muhammad Maaz. All rights reserved.</p>
