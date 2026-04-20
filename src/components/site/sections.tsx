@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Download, Github, Linkedin } from "lucide-react";
 import { experience, honors, profile, projects, skills } from "./data";
+import maazPhoto from "@/assets/maaz.jpg";
 
 function SectionLabel({ index, label }: { index: string; label: string }) {
   return (
