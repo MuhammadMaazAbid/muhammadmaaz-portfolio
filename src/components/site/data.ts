@@ -63,12 +63,14 @@ export const skills = [
     heading: "Languages & Frameworks",
     items: [
       "C++",
+      "C#",
       "Java",
       "Python",
       "Dart",
       "JavaScript",
       "TypeScript",
       "React",
+      "Blazor",
       "Node.js",
       "Flutter",
     ],
@@ -81,6 +83,7 @@ export const skills = [
     heading: "Certifications",
     items: [
       "Google — Foundations of Project Management",
+      "IBM — Introduction to Project Management",
       "IBM — Intro to DevOps",
       "KodeKloud — Jenkins",
       "KodeKloud — Git",
