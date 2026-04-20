@@ -1,53 +1,49 @@
 
-Plan: stay dark, refine the slate palette, add resume button, build DB-backed contact form, wire profile photo + designed OG card. Photo upload pending.
+Three changes:
 
-## 1. Theme — Soft Dark slate (refined, not changed)
-Update `src/styles.css` tokens to your exact spec:
-- `--background`: `#111827` (deep slate)
-- `--card`: `#1F2937`, `--card-elevated`: `#273548`
-- `--border`: `#2D3748` hairline, `--border-strong`: `#3B4759`
-- `--foreground`: `#E5E7EB` (soft off-white), `--muted-foreground`: `#9CA3AF` (ash)
-- `--primary` (teal): `#2DD4BF` with dark slate foreground
-- `--secondary` (lavender): `#A78BFA` for tags
-- `color-scheme: dark` stays. No gradients, no pure black, no pure white, no glow.
+## 1. Tighten section spacing
+In `src/components/site/sections.tsx`, sections currently use `py-16 md:py-24`. Reduce to `py-10 md:py-14` for `Experience`, `Projects`, `Skills`, `Honors`. Hero stays as-is (it's the top hero). This brings sections visually closer without cramping.
 
-Everything else (Inter, layout, components) keeps working — it just re-skins via tokens.
-
-## 2. Resume download (Option A)
-- Add `Download Resume` ghost button next to "View Projects" / "Contact Me" in `Hero` (`sections.tsx`), and a matching link in `Footer.tsx` and `/contact`.
-- Button links to `/Muhammad_Maaz_Resume.pdf` with `download` attr and opens in new tab as fallback.
-- You drop the PDF into `public/Muhammad_Maaz_Resume.pdf` after — link works the moment the file lands, no code change needed.
-
-## 3. Profile photo in Hero
-- You upload a portrait; I save it to `src/assets/maaz.jpg` (Vite-hashed import).
-- Restructure `Hero` to a 2-column grid on `md+` (text left, photo right ~280px rounded-2xl with hairline border + soft shadow). On your 249px viewport it stacks: photo on top ~140px, then text. No crop weirdness — `object-cover`, `aspect-square`.
-
-## 4. Contact form — DB-only (Lovable Cloud)
-Enable Lovable Cloud. Then:
-- **Migration**: create `contact_messages` table (`id uuid pk`, `name text`, `email text`, `message text`, `created_at timestamptz default now()`). RLS on. Policies: `INSERT` allowed for `anon` + `authenticated` (so the public form can submit); `SELECT` restricted (you'll view rows in Cloud → Tables, no public read).
-- **Server function** `submitContactMessage` in `src/utils/contact.functions.ts` using `createServerFn` + Zod validation (name 1–100, email format, message 10–2000, basic length caps to prevent abuse). Inserts via `supabaseAdmin` (service role, server-only).
-- **Form UI** on `/contact`: replace the static info list bottom-half with a real form using `react-hook-form` + `zod` resolver + existing shadcn `Input`/`Textarea`/`Label`/`Button`. On success → `sonner` toast "Message sent" + reset form. On error → toast with reason. Keep the existing email/GitHub/LinkedIn cards above the form.
-- Email forwarding (Lovable Emails) layered on later — schema + form won't change.
-
-## 5. Designed OG share image (1200×630)
-What it is, briefly: when your URL is pasted into LinkedIn / X / WhatsApp / iMessage / Slack, those platforms read your page's `<meta property="og:image">` and render a rich preview card. Without it you get a bare blue link. With it you get a branded card.
+## 2. Single-page scroll navigation (with separate routes still working)
+Current behavior: nav links go to `/projects`, `/about`, `/contact` (separate routes). You want clicking "Work" / "About" on the homepage to **scroll** to that section on the same page, while still being able to scroll freely up/down through everything.
 
 Approach:
-- Generate **once at build time**, not on the fly. I'll write a small Node script (`scripts/generate-og.mjs`) using `@vercel/og` (Satori under the hood — pure JS, works without native deps) that composes:
-  - Dark slate `#111827` background, subtle 1px grid texture
-  - Your circular portrait left (~280px)
-  - Right column: "Muhammad Maaz" in Inter 72px, tagline "Full-Stack Software Developer — Flutter, Node.js & React" in 32px ash, small teal "Available for opportunities" pill, lavender tag row "UN Millennium Fellow • Founder, Insightify"
-- Output to `public/og-image.png` (1200×630). Run via `bun run og:generate` (added to `package.json` scripts). Re-run only when photo or copy changes.
-- Wire `og:image` + `twitter:image` (+ `twitter:card: summary_large_image`) into `src/routes/index.tsx`'s `head()` only — leaf routes only per TanStack rules. `/projects`, `/about`, `/contact` keep their own text metadata, no shared image.
+- Keep `/projects`, `/about`, `/contact` as standalone routes (good for SEO + direct sharing).
+- On the homepage `/`, render all sections stacked (already the case): Hero, Experience, Projects, Skills, Honors, Contact teaser.
+- Update `Nav.tsx` so when the user is **on `/`**, the nav links become hash anchors (`/#projects`, `/#about`, `/#contact`) that smooth-scroll to the section. When on any other route, they navigate to the full route as today.
+- Add `id="experience"`, `id="projects"`, `id="skills"`, `id="about"`, `id="contact"` to each section (most already exist). Add an `About` section to the homepage (currently only on `/about`) so the anchor has a target — short bio + honors + skills grouped.
+- `scroll-behavior: smooth` is already set in `styles.css`, so anchor jumps animate. Add `scroll-margin-top: 4rem` on section headings so the sticky nav doesn't overlap.
+- Active nav link uses `IntersectionObserver` to highlight whichever section is currently in view (so as you scroll, the nav updates — matches the behavior you described).
 
-## 6. Verification (after build)
-- Click "Download Resume" → confirms 200 (will 404 until you upload the PDF — expected).
-- Submit contact form with valid + invalid input → confirm row appears in Cloud table, validation errors show inline, toast fires.
-- `curl -I` on `/og-image.png` → 200, correct dimensions.
-- Paste preview URL into LinkedIn Post Inspector / opengraph.xyz to confirm card renders.
+Result: nav click = smooth scroll to section, free scrolling unrestricted, active link follows your scroll position. Direct visits to `/projects` etc. still work.
 
-## What I need from you next message
-1. Your portrait photo (drag into chat).
-2. Approval to enable **Lovable Cloud** (needed for the DB + server function). One click on your side when prompted.
+## 3. Light + Dark theme toggle
+- Add a `ThemeProvider` in `src/components/theme-provider.tsx` (React context, persists choice to `localStorage`, respects system preference on first visit, toggles `.dark` class on `<html>`).
+- Wrap the app in `__root.tsx` with `ThemeProvider`, plus an inline pre-hydration script in the `<head>` to set the class before paint (prevents flash of wrong theme on SSR).
+- Add a `ThemeToggle` button (sun/moon icon from lucide-react) in `Nav.tsx`, both desktop and mobile menu.
+- Update `src/styles.css`:
+  - Move current dark tokens from `:root` into `.dark` selector.
+  - Add new `:root` (light mode) tokens — minimal warm-light palette that complements the dark teal/lavender:
+    - bg `#FAFAF7`, card `#FFFFFF`, card-elevated `#F5F4EF`
+    - foreground `#0F1115`, muted-foreground `#5B5F6B`
+    - border `#E6E3DC`, border-strong `#D4D0C7`
+    - primary (teal, slightly deeper for contrast on light): `#0D9488`
+    - secondary (lavender, deeper): `#7C6BD8`
+  - Remove forced `color-scheme: dark` from html; set it dynamically via the theme class.
+  - Update OG image note: it stays the dark-slate version (good for sharing regardless of viewer's theme).
 
-Resume PDF can come whenever — link works the moment you drop the file in `public/`.
+## Files to edit
+- `src/styles.css` — split tokens into `:root` (light) + `.dark` (existing dark)
+- `src/components/theme-provider.tsx` — new, context + hook
+- `src/components/theme-toggle.tsx` — new, sun/moon button
+- `src/routes/__root.tsx` — wrap with provider + inline pre-hydration script
+- `src/components/site/Nav.tsx` — smart links (hash on `/`, route elsewhere) + theme toggle + active-section observer
+- `src/components/site/sections.tsx` — reduce `py-16 md:py-24` → `py-10 md:py-14`, add ids, add `scroll-mt-16` to headings, add an `About` section component
+- `src/routes/index.tsx` — include the new `<About />` in the homepage stack
+
+## Verify after build
+- Toggle theme — colors swap instantly, persists on reload, no flash.
+- On `/`, click Work → smooth-scrolls to projects, can scroll freely past it.
+- On `/about`, click Work in nav → navigates to `/#projects` (full route load + scroll).
+- Sticky nav doesn't cover section headings.
+- Section spacing visibly tighter.
