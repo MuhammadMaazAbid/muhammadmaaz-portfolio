@@ -9,8 +9,8 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Muhammad Maaz portfolio — dark-only fintech-inspired design system.
- * All colors in oklch. Tokens map via @theme inline to Tailwind utilities.
+ * Muhammad Maaz portfolio — fintech-inspired design system.
+ * Light tokens on :root, dark tokens under .dark. All in oklch.
  */
 
 @theme inline {
@@ -45,35 +45,65 @@
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
 
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-card-hover: 0 6px 24px -8px rgba(0, 0, 0, 0.55);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 8px 28px -10px rgba(15, 17, 21, 0.18);
 }
 
+/* Light (default) — warm minimal */
 :root {
   --radius: 0.5rem;
 
-  /* Base — deep slate */
-  --background: oklch(0.234 0.018 257);        /* #111827 */
-  --foreground: oklch(0.917 0.006 258);        /* #E5E7EB */
+  --background: oklch(0.985 0.004 95);          /* #FAFAF7 */
+  --foreground: oklch(0.18 0.012 260);          /* #0F1115 */
 
-  /* Surfaces — slate */
-  --card: oklch(0.295 0.022 258);              /* #1F2937 */
+  --card: oklch(1 0 0);                         /* #FFFFFF */
+  --card-foreground: oklch(0.18 0.012 260);
+  --card-elevated: oklch(0.965 0.006 90);       /* #F5F4EF */
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.012 260);
+
+  --primary: oklch(0.62 0.115 180);             /* #0D9488 deeper teal */
+  --primary-foreground: oklch(0.985 0.004 95);
+
+  --secondary: oklch(0.58 0.16 295);            /* #7C6BD8 deeper lavender */
+  --secondary-foreground: oklch(0.985 0.004 95);
+
+  --muted: oklch(0.965 0.006 90);
+  --muted-foreground: oklch(0.45 0.012 260);    /* #5B5F6B */
+
+  --accent: oklch(0.965 0.006 90);
+  --accent-foreground: oklch(0.18 0.012 260);
+
+  --destructive: oklch(0.6 0.21 22);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  --border: oklch(0.91 0.008 85);               /* #E6E3DC */
+  --border-strong: oklch(0.85 0.01 85);         /* #D4D0C7 */
+  --input: oklch(0.91 0.008 85);
+  --ring: oklch(0.62 0.115 180);
+}
+
+/* Dark — soft slate fintech */
+.dark {
+  --background: oklch(0.234 0.018 257);         /* #111827 */
+  --foreground: oklch(0.917 0.006 258);         /* #E5E7EB */
+
+  --card: oklch(0.295 0.022 258);               /* #1F2937 */
   --card-foreground: oklch(0.917 0.006 258);
-  --card-elevated: oklch(0.343 0.024 258);     /* #273548 */
+  --card-elevated: oklch(0.343 0.024 258);      /* #273548 */
 
   --popover: oklch(0.295 0.022 258);
   --popover-foreground: oklch(0.917 0.006 258);
 
-  /* Accent — teal */
-  --primary: oklch(0.81 0.135 180);            /* #2DD4BF */
+  --primary: oklch(0.81 0.135 180);             /* #2DD4BF */
   --primary-foreground: oklch(0.234 0.018 257);
 
-  /* Accent — lavender */
-  --secondary: oklch(0.74 0.135 295);          /* #A78BFA */
+  --secondary: oklch(0.74 0.135 295);           /* #A78BFA */
   --secondary-foreground: oklch(0.234 0.018 257);
 
   --muted: oklch(0.343 0.024 258);
-  --muted-foreground: oklch(0.71 0.014 258);   /* #9CA3AF */
+  --muted-foreground: oklch(0.71 0.014 258);    /* #9CA3AF */
 
   --accent: oklch(0.343 0.024 258);
   --accent-foreground: oklch(0.917 0.006 258);
@@ -81,17 +111,22 @@
   --destructive: oklch(0.65 0.21 22);
   --destructive-foreground: oklch(0.98 0 0);
 
-  --border: oklch(0.345 0.021 258);            /* #2D3748 */
-  --border-strong: oklch(0.42 0.024 258);      /* #3B4759 */
+  --border: oklch(0.345 0.021 258);             /* #2D3748 */
+  --border-strong: oklch(0.42 0.024 258);       /* #3B4759 */
   --input: oklch(0.345 0.021 258);
   --ring: oklch(0.81 0.135 180);
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 6px 24px -8px rgba(0, 0, 0, 0.55);
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    color-scheme: dark;
   }
+
+  html:not(.dark) { color-scheme: light; }
+  html.dark { color-scheme: dark; }
 
   * {
     border-color: var(--color-border);
@@ -113,6 +148,11 @@
 
   h1, h2, h3, h4 {
     letter-spacing: -0.02em;
+  }
+
+  /* Offset for sticky nav when scrolling to in-page anchors */
+  section[id] {
+    scroll-margin-top: 4rem;
   }
 }
 

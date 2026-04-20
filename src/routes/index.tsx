@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Hero, Experience, Projects, Skills, Honors } from "@/components/site/sections";
+import { Hero, Experience, Projects, Skills, Honors, About, ContactTeaser } from "@/components/site/sections";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -39,6 +39,8 @@ function Index() {
       <Projects />
       <Skills />
       <Honors />
+      <About />
+      <ContactTeaser />
     </>
   );
 }
