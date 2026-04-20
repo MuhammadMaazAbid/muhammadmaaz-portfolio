@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Download, Github, Linkedin } from "lucide-react";
+import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
 import { experience, honors, profile, projects, skills } from "./data";
 import maazPhoto from "@/assets/maaz.jpg";
 
@@ -216,6 +216,59 @@ export function Honors() {
           </li>
         ))}
       </ul>
+    </section>
+  );
+}
+
+export function About() {
+  return (
+    <section id="about" className="container-page py-10 md:py-14">
+      <SectionLabel index="05" label="About" />
+      <div className="grid gap-8 md:grid-cols-[1fr_1.4fr] md:gap-12">
+        <div>
+          <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">
+            About me
+          </h3>
+          <p className="mt-3 text-sm text-muted-foreground">
+            {profile.title}
+          </p>
+        </div>
+        <p className="text-[15px] leading-relaxed text-muted-foreground">
+          {profile.bio}
+        </p>
+      </div>
+    </section>
+  );
+}
+
+export function ContactTeaser() {
+  return (
+    <section id="contact" className="container-page py-10 md:py-14">
+      <SectionLabel index="06" label="Contact" />
+      <div className="rounded-lg border border-border bg-card p-6 shadow-card md:p-10">
+        <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">
+          Let's build something.
+        </h3>
+        <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+          Open to full-time roles, freelance work, and collaborations on
+          impactful products. The fastest way to reach me is the contact form.
+        </p>
+        <div className="mt-6 flex flex-wrap items-center gap-3">
+          <Link
+            to="/contact"
+            className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            <Mail className="h-4 w-4" />
+            Send a message
+          </Link>
+          <a
+            href={`mailto:${profile.email}`}
+            className="inline-flex items-center gap-2 rounded-md border border-border bg-transparent px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-border-strong hover:bg-card-elevated"
+          >
+            {profile.email}
+          </a>
+        </div>
+      </div>
     </section>
   );
 }
