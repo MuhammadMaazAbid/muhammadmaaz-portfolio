@@ -233,9 +233,31 @@ export function About() {
             {profile.title}
           </p>
         </div>
-        <p className="text-[15px] leading-relaxed text-muted-foreground">
-          {profile.bio}
-        </p>
+        <div className="space-y-5 text-[15px] leading-relaxed text-muted-foreground">
+          <p>
+            I am a Computer Science student at Air University, but I refuse to
+            stay in a single lane. I believe in the polymath approach: I don't
+            just write code; I connect dots across disciplines.
+          </p>
+          <p>
+            My approach to technology is driven by curiosity, intentionality,
+            and character. I believe that to build truly great products, you
+            need to understand both the deep technical architecture and the
+            human reality it serves.
+          </p>
+          <p>
+            <span className="font-medium text-foreground">My Philosophy: Build in Public.</span>{" "}
+            I share the raw journey of growth — not just the polished wins, but
+            the failures, the character development, and the hard-learned
+            lessons. I build with purpose, knowing exactly why we do what we do.
+          </p>
+          <p>
+            <span className="font-medium text-foreground">Current Focus.</span>{" "}
+            Currently, I am the Co-Founder of Insightify, building AI-driven
+            security solutions to combat deepfakes and scams, while navigating
+            the chaotic, exciting world of tech startups.
+          </p>
+        </div>
       </div>
     </section>
   );
