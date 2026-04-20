@@ -9,12 +9,15 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
       type="button"
       onClick={toggle}
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+      suppressHydrationWarning
       className={
         "rounded-md p-2 text-muted-foreground transition-colors hover:bg-card hover:text-foreground " +
         className
       }
     >
-      {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+      <span suppressHydrationWarning>
+        {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+      </span>
     </button>
   );
 }
