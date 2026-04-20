@@ -30,69 +30,85 @@ function Tag({ children, variant = "default" }: { children: React.ReactNode; var
 
 export function Hero() {
   return (
-    <section className="container-page pt-20 pb-24 md:pt-32 md:pb-32 fade-in-up">
-      <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
-        <span className="relative flex h-1.5 w-1.5">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
-          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
-        </span>
-        Available for opportunities
-      </div>
+    <section className="container-page pt-16 pb-20 md:pt-32 md:pb-32 fade-in-up">
+      <div className="grid items-center gap-10 md:grid-cols-[1fr_280px] md:gap-12 lg:grid-cols-[1fr_320px]">
+        <div className="order-2 md:order-1">
+          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
+            </span>
+            Available for opportunities
+          </div>
 
-      <h1 className="mt-6 text-5xl font-semibold leading-[1.05] tracking-tight md:text-7xl lg:text-8xl">
-        {profile.name}
-      </h1>
-      <p className="mt-5 text-lg text-muted-foreground md:text-xl">
-        {profile.tagline}
-      </p>
-      <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
-        {profile.bio}
-      </p>
+          <h1 className="mt-6 text-4xl font-semibold leading-[1.05] tracking-tight md:text-6xl lg:text-7xl">
+            {profile.name}
+          </h1>
+          <p className="mt-5 text-lg text-muted-foreground md:text-xl">
+            {profile.tagline}
+          </p>
+          <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+            {profile.bio}
+          </p>
 
-      <div className="mt-9 flex flex-wrap items-center gap-3">
-        <Link
-          to="/projects"
-          className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-        >
-          View Projects
-          <ArrowRight className="h-4 w-4" />
-        </Link>
-        <Link
-          to="/contact"
-          className="inline-flex items-center gap-2 rounded-md border border-border bg-transparent px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-border-strong hover:bg-card"
-        >
-          Contact Me
-        </Link>
-        <a
-          href="/Muhammad_Maaz_Resume.pdf"
-          download
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-2 rounded-md border border-border bg-transparent px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-border-strong hover:bg-card"
-        >
-          <Download className="h-4 w-4" />
-          Download Resume
-        </a>
+          <div className="mt-9 flex flex-wrap items-center gap-3">
+            <Link
+              to="/projects"
+              className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            >
+              View Projects
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 rounded-md border border-border bg-transparent px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-border-strong hover:bg-card"
+            >
+              Contact Me
+            </Link>
+            <a
+              href="/Muhammad_Maaz_Resume.pdf"
+              download
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-md border border-border bg-transparent px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-border-strong hover:bg-card"
+            >
+              <Download className="h-4 w-4" />
+              Download Resume
+            </a>
 
-        <div className="ml-1 flex items-center gap-1">
-          <a
-            href={profile.github}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="GitHub"
-            className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
-          >
-            <Github className="h-4 w-4" />
-          </a>
-          <a
-            href={profile.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="LinkedIn"
-            className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
-          >
-            <Linkedin className="h-4 w-4" />
-          </a>
+            <div className="ml-1 flex items-center gap-1">
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="GitHub"
+                className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
+              >
+                <Github className="h-4 w-4" />
+              </a>
+              <a
+                href={profile.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn"
+                className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-card hover:text-foreground"
+              >
+                <Linkedin className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="order-1 md:order-2">
+          <div className="relative mx-auto aspect-square w-36 overflow-hidden rounded-2xl border border-border bg-card shadow-card md:w-full">
+            <img
+              src={maazPhoto}
+              alt="Portrait of Muhammad Maaz"
+              className="h-full w-full object-cover"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
         </div>
       </div>
     </section>
