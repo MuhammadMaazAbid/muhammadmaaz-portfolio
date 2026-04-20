@@ -117,7 +117,7 @@ export function Hero() {
 
 export function Experience() {
   return (
-    <section id="experience" className="container-page py-16 md:py-24">
+    <section id="experience" className="container-page py-10 md:py-14">
       <SectionLabel index="01" label="Experience" />
 
       <article className="rounded-lg border border-border bg-card p-6 shadow-card md:p-8">
@@ -154,7 +154,7 @@ export function Experience() {
 
 export function Projects() {
   return (
-    <section id="projects" className="container-page py-16 md:py-24">
+    <section id="projects" className="container-page py-10 md:py-14">
       <SectionLabel index="02" label="Selected Work" />
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
@@ -181,7 +181,7 @@ export function Projects() {
 
 export function Skills() {
   return (
-    <section id="skills" className="container-page py-16 md:py-24">
+    <section id="skills" className="container-page py-10 md:py-14">
       <SectionLabel index="03" label="Stack" />
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
@@ -202,7 +202,7 @@ export function Skills() {
 
 export function Honors() {
   return (
-    <section id="honors" className="container-page py-16 md:py-24">
+    <section id="honors" className="container-page py-10 md:py-14">
       <SectionLabel index="04" label="Recognition" />
 
       <ul className="divide-y divide-border border-y border-border">
