@@ -2,6 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
 import { experience, honors, profile, projects, skills } from "./data";
 import maazPhoto from "@/assets/maaz.jpg";
+import { useReveal } from "@/hooks/use-reveal";
+import { MagneticButton } from "./MagneticButton";
 
 function SectionLabel({ index, label }: { index: string; label: string }) {
   return (
@@ -30,7 +32,8 @@ function Tag({ children, variant = "default" }: { children: React.ReactNode; var
 
 export function Hero() {
   return (
-    <section className="container-page pt-16 pb-20 md:pt-32 md:pb-32 fade-in-up">
+    <section className="relative container-page pt-16 pb-20 md:pt-32 md:pb-32 fade-in-up">
+      <div aria-hidden className="dot-grid absolute inset-0 -z-10" />
       <div className="grid items-center gap-10 md:grid-cols-[1fr_280px] md:gap-12 lg:grid-cols-[1fr_320px]">
         <div className="order-2 md:order-1">
           <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
@@ -52,13 +55,15 @@ export function Hero() {
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
-            <Link
-              to="/projects"
-              className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-            >
-              View Projects
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+            <MagneticButton>
+              <Link
+                to="/projects"
+                className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground shadow-card transition-colors hover:bg-primary/90"
+              >
+                View Projects
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </MagneticButton>
             <Link
               to="/contact"
               className="inline-flex items-center gap-2 rounded-md border border-border bg-transparent px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-border-strong hover:bg-card"
@@ -116,8 +121,9 @@ export function Hero() {
 }
 
 export function Experience() {
+  const ref = useReveal<HTMLElement>();
   return (
-    <section id="experience" className="container-page py-10 md:py-14">
+    <section ref={ref} id="experience" className="reveal container-page py-10 md:py-14">
       <SectionLabel index="01" label="Experience" />
 
       <article className="rounded-lg border border-border bg-card p-6 shadow-card md:p-8">
@@ -153,15 +159,16 @@ export function Experience() {
 }
 
 export function Projects() {
+  const ref = useReveal<HTMLElement>();
   return (
-    <section id="projects" className="container-page py-10 md:py-14">
+    <section ref={ref} id="projects" className="reveal container-page py-10 md:py-14">
       <SectionLabel index="02" label="Selected Work" />
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
         {projects.map((p) => (
           <article
             key={p.title}
-            className="group rounded-lg border border-border bg-card p-6 shadow-card transition-all duration-150 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-card-hover"
+            className="group rounded-lg border border-border bg-card p-6 shadow-card transition-all duration-300 ease-out hover:-translate-y-1 hover:border-primary/40 hover:shadow-card-hover"
           >
             <h3 className="text-lg font-semibold tracking-tight">{p.title}</h3>
             <div className="mt-3 flex flex-wrap gap-1.5">
@@ -180,8 +187,9 @@ export function Projects() {
 }
 
 export function Skills() {
+  const ref = useReveal<HTMLElement>();
   return (
-    <section id="skills" className="container-page py-10 md:py-14">
+    <section ref={ref} id="skills" className="reveal container-page py-10 md:py-14">
       <SectionLabel index="03" label="Stack" />
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
@@ -201,16 +209,17 @@ export function Skills() {
 }
 
 export function Honors() {
+  const ref = useReveal<HTMLElement>();
   return (
-    <section id="honors" className="container-page py-10 md:py-14">
+    <section ref={ref} id="honors" className="reveal container-page py-10 md:py-14">
       <SectionLabel index="04" label="Recognition" />
 
       <ul className="divide-y divide-border border-y border-border">
         {honors.map((h) => (
-          <li key={h.title} className="grid grid-cols-[64px_1fr] gap-6 py-5 md:grid-cols-[100px_1fr]">
+          <li key={h.title} className="group grid grid-cols-[64px_1fr] gap-6 py-5 transition-colors duration-300 hover:bg-card-elevated/40 md:grid-cols-[100px_1fr] px-2 -mx-2 rounded-md">
             <span className="text-sm text-muted-foreground">{h.year}</span>
             <div>
-              <p className="text-base font-medium text-foreground">{h.title}</p>
+              <p className="text-base font-medium text-foreground transition-colors group-hover:text-primary">{h.title}</p>
               <p className="mt-1 text-sm text-muted-foreground">{h.description}</p>
             </div>
           </li>
@@ -221,8 +230,9 @@ export function Honors() {
 }
 
 export function About() {
+  const ref = useReveal<HTMLElement>();
   return (
-    <section id="about" className="container-page py-10 md:py-14">
+    <section ref={ref} id="about" className="reveal container-page py-10 md:py-14">
       <SectionLabel index="05" label="About" />
       <div className="grid gap-8 md:grid-cols-[1fr_1.4fr] md:gap-12">
         <div>
@@ -264,8 +274,9 @@ export function About() {
 }
 
 export function ContactTeaser() {
+  const ref = useReveal<HTMLElement>();
   return (
-    <section id="contact" className="container-page py-10 md:py-14">
+    <section ref={ref} id="contact" className="reveal container-page py-10 md:py-14">
       <SectionLabel index="06" label="Contact" />
       <div className="rounded-lg border border-border bg-card p-6 shadow-card md:p-10">
         <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">
@@ -276,13 +287,15 @@ export function ContactTeaser() {
           impactful products. The fastest way to reach me is the contact form.
         </p>
         <div className="mt-6 flex flex-wrap items-center gap-3">
-          <Link
-            to="/contact"
-            className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            <Mail className="h-4 w-4" />
-            Send a message
-          </Link>
+          <MagneticButton>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground shadow-card transition-colors hover:bg-primary/90"
+            >
+              <Mail className="h-4 w-4" />
+              Send a message
+            </Link>
+          </MagneticButton>
           <a
             href={`mailto:${profile.email}`}
             className="inline-flex items-center gap-2 rounded-md border border-border bg-transparent px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-border-strong hover:bg-card-elevated"
