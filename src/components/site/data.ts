@@ -3,7 +3,7 @@ export const profile = {
   title: "Full-Stack Software Developer",
   tagline: "Full-Stack Software Developer — Flutter, Node.js & React",
   bio:
-    "Motivated and adaptable Computer Science student with hands-on experience in full-stack and mobile development. Skilled in building cross-platform applications using Flutter, with additional experience in C++, Java, Node.js, and REST API integration. Passionate about exploring new technologies, solving real-world problems, and building impactful solutions.",
+    "I build high-performance applications and AI-driven systems. Currently Co-Founder at Insightify, operating at the intersection of full-stack development, cybersecurity, and human-centric design. Deep technical architecture meets real-world execution.",
   email: "muhammadmaaz153@gmail.com",
   github: "https://github.com/MuhammadMaazAbid",
   linkedin: "https://linkedin.com/in/muhammad-maaz-a37690271",
