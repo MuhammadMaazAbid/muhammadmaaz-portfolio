@@ -95,7 +95,13 @@ export const honors = [
   {
     year: "2025",
     title: "Winner — FAST Soventure Pitchfest",
-    description: "Secured official AUBIC incubation for Insightify.",
+    description: "Secured 1st place in FAST SOVENTURE Pitch Fest 2025.",
+  },
+  {
+    year: "2025",
+    title: "Air University Business Incubation Center (AUBIC)",
+    description:
+      "Selected for official incubation in the 2025 cohort; ranked 1st among 138 teams.",
   },
   {
     year: "2025",
