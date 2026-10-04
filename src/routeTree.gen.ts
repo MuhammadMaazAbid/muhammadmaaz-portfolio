@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as NotebookRouteImport } from './routes/notebook'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -18,6 +19,11 @@ import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/e
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotebookRoute = NotebookRouteImport.update({
+  id: '/notebook',
+  path: '/notebook',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/notebook': typeof NotebookRoute
   '/projects': typeof ProjectsRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/notebook': typeof NotebookRoute
   '/projects': typeof ProjectsRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -61,6 +69,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/notebook': typeof NotebookRoute
   '/projects': typeof ProjectsRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -70,15 +79,23 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/notebook'
     | '/projects'
     | '/lovable/email/queue/process'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/projects' | '/lovable/email/queue/process'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/notebook'
+    | '/projects'
+    | '/lovable/email/queue/process'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/contact'
+    | '/notebook'
     | '/projects'
     | '/lovable/email/queue/process'
   fileRoutesById: FileRoutesById
@@ -87,6 +104,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  NotebookRoute: typeof NotebookRoute
   ProjectsRoute: typeof ProjectsRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
 }
@@ -98,6 +116,13 @@ declare module '@tanstack/react-router' {
       path: '/projects'
       fullPath: '/projects'
       preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notebook': {
+      id: '/notebook'
+      path: '/notebook'
+      fullPath: '/notebook'
+      preLoaderRoute: typeof NotebookRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -135,9 +160,19 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  NotebookRoute: NotebookRoute,
   ProjectsRoute: ProjectsRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}

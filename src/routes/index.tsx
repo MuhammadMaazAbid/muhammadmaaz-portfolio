@@ -1,46 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Hero, Experience, Projects, Skills, Honors, About, ContactTeaser } from "@/components/site/sections";
-
+import { Notebook } from "../components/notebook/Notebook";
+const title = "Muhammad Maaz — Growth, Development & Experimentation";
+const description =
+  "Inside my notebook: products I’ve built, ideas I’ve pitched, and people I’ve reached. Explore Muhammad Maaz’s work across development, growth, and experimentation.";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Muhammad Maaz — Full-Stack Developer & UN Millennium Fellow" },
-      {
-        name: "description",
-        content:
-          "Full-Stack Developer specializing in Flutter, Node.js, and React. Founder of Insightify and UN Millennium Fellow, Class of 2025.",
-      },
-      { property: "og:title", content: "Muhammad Maaz — Full-Stack Developer" },
-      {
-        property: "og:description",
-        content:
-          "Full-Stack Developer specializing in Flutter, Node.js, and React. Founder of Insightify and UN Millennium Fellow, Class of 2025.",
-      },
-      { property: "og:image", content: "/og-image.png" },
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:image", content: "https://muhammadmaaz.live/notebook/studio.webp" },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://muhammadmaaz.live/" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Muhammad Maaz — Full-Stack Developer" },
-      {
-        name: "twitter:description",
-        content:
-          "Full-Stack Developer specializing in Flutter, Node.js, and React. Founder of Insightify and UN Millennium Fellow.",
-      },
-      { name: "twitter:image", content: "/og-image.png" },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
+      { name: "twitter:image", content: "https://muhammadmaaz.live/notebook/studio.webp" },
     ],
+    links: [{ rel: "canonical", href: "https://muhammadmaaz.live/" }],
   }),
-  component: Index,
+  component: Notebook,
 });
-
-function Index() {
-  return (
-    <>
-      <Hero />
-      <Experience />
-      <Projects />
-      <Skills />
-      <Honors />
-      <About />
-      <ContactTeaser />
-    </>
-  );
-}

@@ -1,25 +1,24 @@
-**Muhammad Maaz | Full-Stack Portfolio 🚀**
-A high-performance, responsive personal portfolio and brand hub built to showcase my journey as a developer and startup founder. This project serves as a live demonstration of my "Polymath" philosophy—connecting technical depth with human-centric design.
+# Muhammad Maaz — Personal notebook
 
-**🛠️ The Tech Stack**
-Frontend: React.js + TypeScript (Vite)
+A portfolio connecting growth, development, and experimentation through a scroll-driven notebook. The story moves from a cinematic desk scene through projects, fellowship experiences, and growth roles, ending on a closed diary with direct contact links.
 
-**Styling:** Tailwind CSS (Custom "Lavender Mist" & "Soft Dark" themes)
+## Development
 
-**Backend:** Lovable Cloud (Edge Functions & PostgreSQL Database)
+```sh
+npm install
+npm run dev
+npm run build
+```
 
-**Animations:** Framer Motion & IntersectionObserver for smooth-scroll navigation
+Built with React, TypeScript, TanStack Start, Vite, and CSS page transitions. The notebook is available at `/` and `/notebook`. Mobile and reduced-motion visitors receive readable, stacked pages.
 
-**Deployment:** Custom Domain (muhammadmaaz.live)
+## Content
 
-**✨ Key Features**
-Dual-Theme Architecture: A sophisticated light/dark mode toggle with persistent state.
+- `src/components/notebook/chapters.tsx`: projects and personal stories
+- `src/components/notebook/Notebook.tsx`: camera, page turns, closing cover, and contacts
+- `src/notebook.css`: notebook presentation and responsive layouts
+- `public/notebook`: optimized media used by the experience
 
-Single-Page Hybrid Nav: Smart navigation that uses hash anchors for smooth scrolling on the homepage while maintaining separate routes for SEO.
+## Publishing
 
-Dynamic Contact System: A full-stack contact form that stores submissions in a secure database and triggers real-time email notifications.
-
-Optimized Performance: Clean section spacing (py-10 md:py-14) and scroll-margin-top logic for a premium user experience.
-
-**🎯 Purpose**
-This repository isn't just a site; it's a "Build in Public" artifact. It documents my growth as a CS student at Air University and my work as the Co-Founder of Insightify, where I am building AI-driven security solutions.
+The existing site is hosted through Lovable at https://muhammadmaaz.live. Push changes to the connected GitHub repository, then publish the updated project in Lovable. A Git push alone does not confirm that the custom domain has been updated.
