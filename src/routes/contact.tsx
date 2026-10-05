@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { contactSchema, submitContactMessage, type ContactInput } from "@/utils/contact.functions";
 
 export const Route = createFileRoute("/contact")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Contact — Muhammad Maaz" },

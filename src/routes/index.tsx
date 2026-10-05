@@ -4,6 +4,7 @@ const title = "Muhammad Maaz — Growth, Development & Experimentation";
 const description =
   "Inside my notebook: products I’ve built, ideas I’ve pitched, and people I’ve reached. Explore Muhammad Maaz’s work across development, growth, and experimentation.";
 export const Route = createFileRoute("/")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title },
