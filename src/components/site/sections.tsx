@@ -10,7 +10,7 @@ function SectionLabel({ index, label }: { index: string; label: string }) {
     <div className="mb-8 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
       <span className="text-primary">{index}</span>
       <span className="h-px flex-1 bg-border" />
-      <span>{label}</span>
+      <h2 className="text-xs font-medium">{label}</h2>
     </div>
   );
 }

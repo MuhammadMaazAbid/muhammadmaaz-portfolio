@@ -3,6 +3,7 @@ import { Experience, Honors, Skills } from "@/components/site/sections";
 import { profile } from "@/components/site/data";
 
 export const Route = createFileRoute("/about")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "About — Muhammad Maaz" },

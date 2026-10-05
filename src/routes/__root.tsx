@@ -37,16 +37,12 @@ function NotFoundComponent() {
 }
 
 export const Route = createRootRoute({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Muhammad Maaz — Full-Stack Developer & UN Millennium Fellow" },
-      {
-        name: "description",
-        content:
-          "Portfolio of Muhammad Maaz — Full-Stack Developer building cross-platform apps with Flutter, Node.js, and React. UN Millennium Fellow, Class of 2025.",
-      },
       { name: "author", content: "Muhammad Maaz" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

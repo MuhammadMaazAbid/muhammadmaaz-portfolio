@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Projects } from "@/components/site/sections";
 
 export const Route = createFileRoute("/projects")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Selected Work — Muhammad Maaz" },
