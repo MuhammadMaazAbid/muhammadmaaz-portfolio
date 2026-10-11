@@ -19,8 +19,9 @@ const TURN_START = 6;
 const TURN_DURATION = 1.2;
 const CHAPTER_INTERVAL = 2.2;
 const CLOSE_START = TURN_START + (chapters.length - 2) * CHAPTER_INTERVAL + TURN_DURATION + 1.3;
-const CLOSE_DURATION = 1.6;
-const JOURNEY_LENGTH = CLOSE_START + CLOSE_DURATION + 1;
+const CLOSE_DURATION = 2.4;
+const SETTLE_DURATION = 1.2;
+const JOURNEY_LENGTH = CLOSE_START + CLOSE_DURATION + SETTLE_DURATION + 0.5;
 const chapterPosition = (index: number) =>
   index === 0 ? 5.6 : TURN_START + (index - 1) * CHAPTER_INTERVAL + TURN_DURATION + 0.35;
 const clamp = (value: number) => Math.max(0, Math.min(1, value));
@@ -76,16 +77,22 @@ export function Notebook() {
       const dive = ease((position - 3.5) / 1.8);
       const enter = ease((position - 4.65) / 0.65);
       const close = ease((position - CLOSE_START) / CLOSE_DURATION);
+      const settle = ease((position - CLOSE_START - CLOSE_DURATION + 0.3) / SETTLE_DURATION);
       stage.current.style.setProperty("--close", String(close));
+      stage.current.style.setProperty("--desk", String(enter));
+      stage.current.style.setProperty("--hands", String(ease((close - 0.7) / 0.3)));
       stage.current.style.setProperty(
-        "--ending",
-        String(ease((position - CLOSE_START + 0.45) / 0.3)),
+        "--closing-visible",
+        position >= CLOSE_START ? "visible" : "hidden",
       );
+      stage.current.style.setProperty("--pages-visible", close > 0 ? "hidden" : "visible");
+      stage.current.style.setProperty("--stack-visible", enter === 1 ? "visible" : "hidden");
       if (cover.current) cover.current.inert = !media.matches && close < 0.98;
       targetTime = media.matches ? 0 : rise * Math.max(0, (video?.duration || 8) - 1 / 24);
       seek();
       stage.current.style.setProperty("--rise", String(rise));
       stage.current.style.setProperty("--enter", String(enter));
+      stage.current.style.setProperty("--book-visible", enter > 0 ? "visible" : "hidden");
       stage.current.style.setProperty(
         "--ink",
         String(ease((position - 3.25) / 0.45) * (1 - enter)),
@@ -98,6 +105,7 @@ export function Notebook() {
         if (!leaf) return;
         const turn = ease((position - TURN_START - index * CHAPTER_INTERVAL) / TURN_DURATION);
         leaf.style.setProperty("--turn", String(turn));
+        leaf.style.visibility = close > 0 || (index > 0 && enter < 1) ? "hidden" : "visible";
         leaf.style.zIndex = String(
           turn > 0 && turn < 1
             ? chapters.length + 2
@@ -120,7 +128,7 @@ export function Notebook() {
       const sourceWidth = 724 * imageScale;
       const sourceHeight = 410 * imageScale;
       const finalWidth = Math.min(width * 0.88, (height * 0.78 * 724) / 410);
-      const zoom = 1 + dive * (finalWidth / sourceWidth - 1);
+      const zoom = (1 + dive * (finalWidth / sourceWidth - 1)) * (1 - settle * 0.12);
       const centerY = height / 2 - 78 * imageScale;
       const centerX = width / 2 + 10 * imageScale;
       const moveX = dive * (width / 2 - centerX);
@@ -185,9 +193,7 @@ export function Notebook() {
       cover.current.scrollIntoView({ behavior: "instant", block: "start" });
     } else {
       window.scrollTo({
-        top:
-          journey.current.offsetTop +
-          stage.current.clientHeight * (CLOSE_START + CLOSE_DURATION + 0.3),
+        top: journey.current.offsetTop + stage.current.clientHeight * (JOURNEY_LENGTH - 0.2),
         behavior: "smooth",
       });
     }
@@ -278,9 +284,10 @@ export function Notebook() {
             <video ref={camera} muted playsInline preload="auto" poster="/notebook/studio.webp">
               <source src="/notebook/camera.mp4" type="video/mp4" />
             </video>
+            <img className="nb-desk-plate" src="/notebook/desk-clean.webp" alt="" />
+            <img className="nb-desk-hands" src="/notebook/desk-hands.webp" alt="" />
           </div>
           <div className="nb-shade" />
-          <div className="nb-end-shade" />
           <div className="nb-ink" aria-hidden="true">
             <div>
               <CoverTitle />
@@ -334,6 +341,10 @@ export function Notebook() {
             <div className="nb-closing-leaf">
               <div className="nb-cover-inside nb-paper" aria-hidden="true">
                 {chapters[chapters.length - 1].left}
+                <span className="nb-page-number">
+                  {String(chapters.length * 2 - 1).padStart(2, "0")} —{" "}
+                  {chapters[chapters.length - 1].label}
+                </span>
               </div>
               <div className="nb-cover-outside" id="contact-cover" ref={cover}>
                 <p className="nb-cover-name">MUHAMMAD MAAZ / FIELD NOTES</p>

@@ -5,24 +5,7 @@ export const chapters: { id: string; label: string; left: ReactNode; right: Reac
   {
     id: "opening-notes",
     label: "The question",
-    left: (
-      <div className="nb-opening-note">
-        <p className="nb-chapter">FIELD NOTES / MUHAMMAD MAAZ</p>
-        <h2>
-          Everything starts
-          <br />
-          with a question.
-        </h2>
-        <p className="nb-lead">
-          What could I build?
-          <br />
-          Who could it help?
-          <br />
-          What would I learn?
-        </p>
-        <p className="nb-handnote">Keep scrolling. There’s a story in these pages.</p>
-      </div>
-    ),
+    left: <div className="nb-opening-blank" aria-hidden="true" />,
     right: (
       <div className="nb-opening-note nb-opening-cover">
         <p className="nb-chapter">QUESTIONS, BUILDS & LESSONS</p>

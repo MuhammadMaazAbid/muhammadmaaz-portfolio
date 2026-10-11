@@ -1322,26 +1322,23 @@
   opacity: 1;
   pointer-events: auto;
 }
-.nb-end-shade {
-  position: absolute;
-  inset: 0;
-  background: #180f20;
-  opacity: var(--close, 0);
-  pointer-events: none;
-}
 @media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
   .nb-stage {
     --close: 0;
-    --ending: 0;
   }
   .nb-book {
+    opacity: 1;
+    visibility: var(--book-visible, hidden);
     transform: translate(calc(-50% - var(--close) * 25%), -50%);
-    border-color: rgb(72 51 60 / calc(1 - var(--close)));
-    box-shadow: 0 30px 70px rgb(0 0 0 / calc(0.65 * (1 - var(--close))));
+    border-color: rgb(72 51 60 / max(0, calc(var(--enter) - var(--close) * 20)));
+    box-shadow: 0 30px 70px rgb(0 0 0 / max(0, calc(var(--enter) * 0.6 - var(--close) * 12)));
   }
   .nb-book > .nb-base-left,
   .nb-book > .nb-leaf {
-    opacity: calc(1 - var(--close));
+    visibility: var(--pages-visible, visible);
+  }
+  .nb-base-right {
+    visibility: var(--stack-visible, hidden);
   }
   .nb-closing-leaf {
     position: absolute;
@@ -1352,7 +1349,7 @@
     transform-origin: right center;
     transform-style: preserve-3d;
     transform: rotateY(calc(var(--close) * 180deg));
-    opacity: var(--ending);
+    visibility: var(--closing-visible, hidden);
     z-index: 30;
   }
   .nb-cover-inside,
@@ -1382,6 +1379,49 @@
   .nb-chapters button {
     padding: 12px 8px;
     font-size: 10px;
+  }
+}
+/* Keep the physical pages opaque; fading their 3D parent exposes every back face. */
+@media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
+  .nb-paper {
+    overflow: hidden;
+  }
+  .nb-opening-cover,
+  .nb-paper[data-page="1"] > .nb-page-number {
+    opacity: var(--enter, 0);
+  }
+  .nb-leaf {
+    pointer-events: none;
+  }
+  .nb-paper:not([inert]) {
+    pointer-events: auto;
+  }
+  .nb-paper[inert] {
+    pointer-events: none;
+  }
+  .nb-camera video,
+  .nb-desk-plate,
+  .nb-desk-hands {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .nb-desk-plate {
+    opacity: var(--desk, 0);
+  }
+  .nb-desk-hands {
+    opacity: calc(var(--desk, 0) * var(--hands, 0));
+  }
+  .nb-opening-blank + .nb-page-number {
+    display: none;
+  }
+  .nb-cover-outside {
+    box-shadow:
+      inset 0 0 0 9px #251a2f,
+      inset 0 0 0 10px #c8ae7440,
+      8px 12px 24px #0005;
   }
 }
 @media (min-width: 801px) and (max-height: 740px) and (prefers-reduced-motion: no-preference),
@@ -1426,9 +1466,6 @@
   }
   .nb-cover-identity p {
     font-size: 25px;
-  }
-  .nb-end-shade {
-    display: none;
   }
 }
 @media (prefers-reduced-motion: reduce) {
