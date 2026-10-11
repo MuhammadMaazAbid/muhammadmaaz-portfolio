@@ -1325,6 +1325,7 @@
 @media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
   .nb-stage {
     --close: 0;
+    --pages-visible: hidden;
   }
   .nb-book {
     opacity: 1;

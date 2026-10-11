@@ -85,7 +85,10 @@ export function Notebook() {
         "--closing-visible",
         position >= CLOSE_START ? "visible" : "hidden",
       );
-      stage.current.style.setProperty("--pages-visible", close > 0 ? "hidden" : "visible");
+      stage.current.style.setProperty(
+        "--pages-visible",
+        close > 0 || enter === 0 ? "hidden" : "visible",
+      );
       stage.current.style.setProperty("--stack-visible", enter === 1 ? "visible" : "hidden");
       if (cover.current) cover.current.inert = !media.matches && close < 0.98;
       targetTime = media.matches ? 0 : rise * Math.max(0, (video?.duration || 8) - 1 / 24);
@@ -105,7 +108,8 @@ export function Notebook() {
         if (!leaf) return;
         const turn = ease((position - TURN_START - index * CHAPTER_INTERVAL) / TURN_DURATION);
         leaf.style.setProperty("--turn", String(turn));
-        leaf.style.visibility = close > 0 || (index > 0 && enter < 1) ? "hidden" : "visible";
+        leaf.style.visibility =
+          close > 0 || enter === 0 || (index > 0 && enter < 1) ? "hidden" : "visible";
         leaf.style.zIndex = String(
           turn > 0 && turn < 1
             ? chapters.length + 2
