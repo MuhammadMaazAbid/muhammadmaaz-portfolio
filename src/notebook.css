@@ -987,8 +987,7 @@
     scroll-margin-top: 82px;
     border-bottom: 1px solid #cbbda5;
   }
-  .nb-paper[data-page="0"],
-  .nb-paper[data-page="1"] {
+  .nb-paper[data-page="0"] {
     display: none;
   }
   .nb-paper:last-child {

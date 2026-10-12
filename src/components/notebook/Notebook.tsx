@@ -108,8 +108,11 @@ export function Notebook() {
         if (!leaf) return;
         const turn = ease((position - TURN_START - index * CHAPTER_INTERVAL) / TURN_DURATION);
         leaf.style.setProperty("--turn", String(turn));
-        leaf.style.visibility =
-          close > 0 || enter === 0 || (index > 0 && enter < 1) ? "hidden" : "visible";
+        leaf.style.visibility = media.matches
+          ? ""
+          : close > 0 || enter === 0 || (index > 0 && enter < 1)
+            ? "hidden"
+            : "visible";
         leaf.style.zIndex = String(
           turn > 0 && turn < 1
             ? chapters.length + 2
